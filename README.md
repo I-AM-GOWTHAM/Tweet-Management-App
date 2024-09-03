@@ -40,8 +40,8 @@ Follow these steps to set up and run the project locally.
 
 Clone the Repository
 bash
-``` 
 git clone https://github.com/i-am-gowtham/tweet-management-app-using-django-with-docker-integration.git
+```
 cd tweet-management-app
 Setup Virtual Environment
 Create and activate a virtual environment to isolate project dependencies.
@@ -194,16 +194,15 @@ Add relevant screenshots of your application here to showcase the UI and functio
 Contributing
 Contributions are welcome! Please follow these steps:
 
-Fork the repository.
+# Fork the repository.
 Create a new branch for your feature: git checkout -b feature-name.
 Commit your changes: git commit -m 'Add some feature'.
 Push to the branch: git push origin feature-name.
 Open a pull request.
 
 
-Contact
-M Gowtham Kumar
-
-Email: mandalagowtham2003@gmail.com
-LinkedIn: https://www.linkedin.com/in/mandala-gowtham-kumar-393669217/
-GitHub: i-am-gowtham
+# Contact
+  M Gowtham Kumar
+  Email: mandalagowtham2003@gmail.com
+  LinkedIn: https://www.linkedin.com/in/mandala-gowtham-kumar-393669217/
+  GitHub: i-am-gowtham
