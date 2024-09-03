@@ -1,17 +1,17 @@
-FROM ubuntu
+# Use official Python image as base
+FROM python:3.x
 
-WORKDIR /app
+# Set work directory
+WORKDIR /usr/src/app
+# Copy project files
+COPY . /usr/src/app/
 
-COPY requirements.txt /app
-COPY tweet_project /app
+# Install dependencies
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    pip install -r requirements.txt && \
-    cd tweet_project
+# Expose port
+EXPOSE 8000
 
-ENTRYPOINT ["python3"]
-CMD ["manage.py", "runserver", "0.0.0.0:8000"]
-
-
-
+# Run migrations and start server
+CMD python manage.py migrate && python manage.py runserver 0.0.0.0:8000
