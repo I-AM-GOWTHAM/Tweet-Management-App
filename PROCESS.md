@@ -1,21 +1,38 @@
 # project folder creation
 ```
 mkdir Django-full-stack-project
-cd Django-full-stack-project   #goto that folder
-python3 -m venv .venv  #creating virtual env as .venv
-.venv/scripts/activate  #activate that environment 
-virtual env activated  #activated
+cd Django-full-stack-project
+```
+creating virtual env as .venv
+```
+python3 -m venv .venv  
+cd .venv/scripts
+activate
+cd ../..
+```
+# Install Django
+```
 pip install django  #intall django
 pip install --upgrade pip  #upgrade pip optional
-pip freeze > requirements.txt  //creating requirements.txt for packages versions
-django-admin startproject tweet_project //creating django project with name tweet_project then run it 
-cd tweet_project
-python manage.py runserver  //run the project
-python manage.py makemigrations  //make migrations
-python manage.py migrate  //optional after migrations
-python manage.py createsuperuser  //creating super user and create credentials gowtham gowtham
 ```
-//MODIFY SETTING.PY 
+//creating requirements.txt for packages versions
+```pip freeze > requirements.txt```
+//creating django project with name tweet_project then run it 
+```
+django-admin startproject tweet_project
+cd tweet_project
+```
+//run the project
+python manage.py runserver 
+//make migrations
+```
+python manage.py makemigrations  
+python manage.py migrate
+```
+//creating super user and create credentials username password
+```python manage.py createsuperuser```  
+//MODIFY SETTING.PY
+``` 
 import os 
 #ADDED CODE FOR WHERE THE MEDIA FILE WILL BE STORED
 MEDIA_URL = '/media/'
@@ -23,24 +40,28 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #ADDED CODE FOR WHERE THE STATIC FILES WILL BE STORED
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
-
+```
 //MODIFY url.py and add commands like below
+```
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-python manage.py startapp tweet_app //creating django app with name tweet_app
+```
+//creating django app with name tweet_app
+```python manage.py startapp tweet_app ```
 
 //goto that app and create urls.py file and add basic code
 //now create a view in views.py in app
 //app/views.py
+```
 def index(request):
     return render(request,'index.html')
-
+```
 create path to that index view as below
 //app/urls.py
+```
 from django.urls import path 
 from . import views
 urlpatterns = [
@@ -51,7 +72,9 @@ INSTALLED_APPS = [
     ....,
     'tweet_app',
 ]
+```
 //create templates folder app/templates/index.html/basic code
+```
 TEMPLATES = [
     {
         ....,
@@ -59,19 +82,22 @@ TEMPLATES = [
         ....,
     },
 ]
+```
 
 //in project urls.py add app.views.urls
+```
 from django.urls import path,include //adding include
 urlpatterns = [
     ....,
     path('tweet/', include('tweet_app.urls')),  //connecting app.urls to the project urls
 ]
+```
 //run the manage.py you can see index page text as result
 //UPTO NOW you created a project and an app you connected app to project in urls.py and settings.py 
 //CREATED A INDEX VIEW IN APP AND CONNECT WITH URL CREATED TEMPLATES FOLDER written code for index.html so upto now i hope its clear 
-
 //TO PROVIDE COMMON TEMPLATES CREATE FOLDER TEMPLATES IN mainfolder(basefolder)/templates also
 //mainfolder(basefolder)/templates/layout.html
+```
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -92,20 +118,25 @@ urlpatterns = [
     </div>
 </body>
 </html>
+```
 
 //DELETE THE HTMLCODE IN index.html 
+```
 {% extends "layout.html" %}
 {% block title%}layout page{% endblock %}
 {% block content%}
 <h1 class="text-center mt-4">django project INDEX PAGE CONTENT</h1>
 {% endblock %}
-
+```
 //install pillow for photos upload tweet purpose
+```
 python -m pip install pillow
-and then update the pillow version to the requirements.txt by the command pip freeze>requirements.txt
+```
+and then update the pillow version to the requirements.txt by the command ```pip freeze>requirements.txt```
 make sure you are at the mainfolder(basefolder)/ when you running the freeze command beacuse requirements.txt is there only
 
 //NOW CREATE MODELS IN app/models.py
+```
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
@@ -118,22 +149,24 @@ class tweet(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.text[:10]}'   //this is to diplay username - subject at admin portal
-/endcode  
+```
 
 //migrate the tweet model by makemigrations
+```
 python manage.py makemigrations
 python manage.py migrate  -> done
-
+```
 //whenever you created model you need to register in app/admin.py
+```
 from django.contrib import admin
 from . models import Tweet
 # Register your models here.
 admin.site.register(Tweet)
--->done
+```
 
 //CREATIN FORMS.PY 
 create app/forms.py
-
+```
 from django import forms
 from .models import Tweet
 
@@ -142,18 +175,19 @@ class TweetForm(forms.ModelForm):
         model = Tweet
         fields = ['text','photo']
 
-/endcode
+```
 
 //now create views to render the tweetlist and forms in html
 app/views.py
+```
 from .models import Tweet
 from .forms import TweetForm
 def tweet_list(request):
     tweets = Tweet.objects.all().order_by('-created_at')
     return render(request,'tweet_list.html',{'tweets':tweets})
-
+```
 //now create views for create_tweet,tweet_delete,tweet_edit
-/startcode
+```
 from django.shortcuts import render,redirect
 from .models import Tweet
 from .forms import TweetForm
@@ -201,12 +235,12 @@ def tweet_delete(request,tweet_id):
         return redirect('tweet_list.html')
     return render(request,'tweet_confirm_delete.html',{'tweet':tweet})
 
-/endcode
+```
 
 
 //now templates tweet_list.html,tweet_form.html,tweet_confirm_delete.html
-
 /app/templates/tweet_list.html
+```
 {% extends "layout.html" %}
 {% block title%}layout page{% endblock %}
 
@@ -229,8 +263,9 @@ def tweet_delete(request,tweet_id):
 </div>
 
 {% endblock %}
-
+```
 app/templates/tweet_form.html
+```
 {% extends "layout.html" %}
 {% block title%}layout page{% endblock %}
 
@@ -249,8 +284,9 @@ app/templates/tweet_form.html
     </form>
 </h2>
 {% endblock %}
-
+```
 app/tweet_confirm_delete.html
+```
 {% extends "layout.html" %}
 {% block title%}layout page{% endblock %}
 
@@ -262,9 +298,10 @@ app/tweet_confirm_delete.html
     <a class="btn btn-success" href="{% url 'tweet_list' %}">Cancel</a>
 </form>
 {% endblock %}
-
+```
 //NOW ADD USER REGISTRATION,LOGIN,LOGOUT FEATURE
 in app/forms.py
+```
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 class UserRegistrationForm(UserCreationForm):
@@ -272,10 +309,11 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username','email','password1','password2')
-
+```
 in app/views.py
+```
 from django.contrib.auth.decorators import login_required
-@login_required  //put this on top of function in which there is login requires FEATURE
+@login_required  #put this on top of function in which there is login requires FEATURE
 
 @login_required
 def tweet_create(request):
@@ -285,8 +323,9 @@ def tweet_edit(request,tweet_id):
 
 @login_required
 def tweet_delete(request,tweet_id):
-
+```
 //after that write views for registerations
+```
 from .forms import TweetForm,UserRegistrationForm
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import login
@@ -302,11 +341,11 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request,'registration/register.html',{'form':form})
-
+```
 //now create registration folder in mainfolder/templates
 //create logged_out.html,login.html,register.html
-
 //mainfolder/templates/registeration/register.html
+```
 {% extends "layout.html" %}
 {% block title%}layout page{% endblock %}
 {% block content%}
@@ -318,9 +357,10 @@ def register(request):
     <button class="btn btn-primary">Register</button>
 </form>
 {% endblock %}
-
+```
 
 //mainfolder/templates/registeration/logout.html
+```
 {% extends "layout.html" %}
 {% block title%}layout page{% endblock %}
 {% block content%}
@@ -332,8 +372,9 @@ def register(request):
     <p>Dont have an account? <a href="{% url 'register' %}">Register here</a></p>
 </form>
 {% endblock %}
-
+```
 //mainfolder/templates/registeration/logout.html
+```
 {% extends "layout.html" %}
 {% block title%}layout page{% endblock %}
 {% block content%}
@@ -351,15 +392,15 @@ urlpatterns = [
     path('tweet/', include('tweet_app.urls')),
     path('accounts/', include('django.contrib.auth.urls')),   //added line
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+```
 //in settings.py add url for login,login_redirect,logout_redirect
+```
 LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/tweet/'
 LOGOUT_REDIRECT_URL = '/tweet/'
-
+```
 //modify some code in mainfolder/templates/layout.html the final code for layout.html below
-//START CODE
-
+```
 {% load static %}
 <!DOCTYPE html>
 <html lang="en"  data-bs-theme="dark">
@@ -431,8 +472,7 @@ LOGOUT_REDIRECT_URL = '/tweet/'
     </div>
 </body>
 </html>
-
-//ENDCODE
+```
 
 
 RUN THE CODE ...
