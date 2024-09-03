@@ -5,7 +5,7 @@ FROM python:3.11
 WORKDIR /app
 # Copy project files
 COPY requirements.txt /app
-COPY tweet_app /app
+COPY tweet_project /app
 # Install dependencies
 RUN apt-get update && \
     apt-get install -y python3 python3-pip && \
