@@ -40,57 +40,51 @@ Follow these steps to set up and run the project locally.
 
 Clone the Repository
 bash
-Copy code
-git clone https://github.com/yourusername/tweet-management-app.git
+``` 
+git clone https://github.com/i-am-gowtham/tweet-management-app-using-django-with-docker-integration.git
 cd tweet-management-app
 Setup Virtual Environment
 Create and activate a virtual environment to isolate project dependencies.
-
+```
 On Windows:
 
-bash
-Copy code
+``` bash
 python -m venv .venv
 .venv\Scripts\activate
 On macOS/Linux:
-
-bash
-Copy code
+```
+``` bash
 python3 -m venv .venv
 source .venv/bin/activate
 Install Dependencies
 Upgrade pip and install all required Python packages.
-
-bash
-Copy code
+```
+```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 Database Migrations
 Apply database migrations to set up the SQLite database.
-
-bash
-Copy code
+```
+``` bash
 python manage.py makemigrations
 python manage.py migrate
 Create Superuser
 Create a superuser account to access the Django admin panel.
-
-bash
-Copy code
+```
+```bash
 python manage.py createsuperuser
 Provide a username, email, and password when prompted.
-
+```
 Running the Server
 Start the development server:
 
-bash
-Copy code
+``` bash
 python manage.py runserver
 Access the application at http://127.0.0.1:8000/.
-
+```
 Project Structure
 arduino
-Copy code
+```
 tweet-management-app/
 ├── tweet_project/
 │   ├── settings.py
@@ -119,7 +113,8 @@ tweet-management-app/
 │   └── ...
 ├── requirements.txt
 └── manage.py
-Docker Integration
+```
+# Docker Integration
 Containerize the application using Docker for easy deployment.
 
 Prerequisites
@@ -127,8 +122,8 @@ Ensure Docker is installed and running on your system.
 Docker Setup
 Create a Dockerfile in the root directory:
 
-Dockerfile
-Copy code
+``` Dockerfile
+
 # Dockerfile
 
 # Use official Python image as base
@@ -149,40 +144,37 @@ EXPOSE 8000
 
 # Run migrations and start server
 CMD python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+```
 Create a .dockerignore file to exclude unnecessary files:
-
 markdown
-Copy code
-# .dockerignore
+  # .dockerignore
+  __pycache__/
+  *.pyc
+  *.pyo
+  *.pyd
+  *.swp
+  *.swo
+  .env
+  .venv/
+  media/
 
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.swp
-*.swo
-.env
-.venv/
-media/
-Building and Running Docker Container
+# Building and Running Docker Container
 Build the Docker image:
 
-bash
-Copy code
+``` bash
 docker build -t tweet-app .
 Run the Docker container:
-
-bash
-Copy code
+```
+``` bash
 docker run -d -p 8000:8000 tweet-app
 Access the application at http://localhost:8000/.
-
+```
 Usage
 Accessing the Application
 Homepage: Lists all tweets with options to create, edit, or delete (if authenticated).
 Register: Create a new user account.
 Login: Access your account to manage tweets.
-Admin Panel: Accessible at http://localhost:8000/admin/ for superusers.
+Admin Panel: Accessible at ```http://localhost:8000/admin/``` for superusers.
 Creating a Tweet
 Log in to your account.
 Click on "Create a Tweet".
