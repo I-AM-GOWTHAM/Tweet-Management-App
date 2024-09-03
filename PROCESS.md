@@ -1,10 +1,12 @@
-created folder Django-full-stack-project //
-cd Django-full-stack-project   //goto that folder
-python3 -m venv .venv  //creating virtual env as .venv
-.venv/scripts/activate  //activate that environment 
-virtual env activated  //activated
-pip install django  //intall django
-pip install --upgrade pip  //upgrade pip optional
+# project folder creation
+```
+mkdir Django-full-stack-project
+cd Django-full-stack-project   #goto that folder
+python3 -m venv .venv  #creating virtual env as .venv
+.venv/scripts/activate  #activate that environment 
+virtual env activated  #activated
+pip install django  #intall django
+pip install --upgrade pip  #upgrade pip optional
 pip freeze > requirements.txt  //creating requirements.txt for packages versions
 django-admin startproject tweet_project //creating django project with name tweet_project then run it 
 cd tweet_project
@@ -12,7 +14,7 @@ python manage.py runserver  //run the project
 python manage.py makemigrations  //make migrations
 python manage.py migrate  //optional after migrations
 python manage.py createsuperuser  //creating super user and create credentials gowtham gowtham
-
+```
 //MODIFY SETTING.PY 
 import os 
 #ADDED CODE FOR WHERE THE MEDIA FILE WILL BE STORED
