@@ -80,7 +80,7 @@ Start the development server:
 
 ``` bash
 python manage.py runserver
-Access the application at http://127.0.0.1:8000/.
+Access the application at http://localhost:8000/.
 ```
 Project Structure
 arduino
