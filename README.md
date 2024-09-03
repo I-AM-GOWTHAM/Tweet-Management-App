@@ -40,7 +40,8 @@ Follow these steps to set up and run the project locally.
 
 Clone the Repository
 bash
-git clone https://github.com/i-am-gowtham/tweet-management-app-using-django-with-docker-integration.git
+```
+git clone https://github.com/i-am-gowtham/tweet-management-app.git```
 ```
 cd tweet-management-app
 Setup Virtual Environment
